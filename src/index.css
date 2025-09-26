@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *)); /* se aplica el cambio de temas*/
+@theme{ 
+    --color-primary: #00A6F4;
+    --color-bg-dark: #000000;
+}
