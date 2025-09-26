@@ -13,9 +13,9 @@ export const PublicacionCard = ({item}) => {
         <div className="border-b bordeder-gray-500/50 p-4">
             <div className="flex justify-between">
                 <div className="flex items-center gap-3">
-                       <img src="https://i.redd.it/ta7p8nbpnr481.jpg" className="w-12 h-12 rounded-full object-cover" />
+                       <img src={item?.foto_usuario} className="w-12 h-12 rounded-full object-cover" />
                        <span className="font-bold ">
-                        Nuriam 
+                        {item?.nombre_usuario} 
                        </span>
                 </div>
                 <div className="flex items-center gap-2">

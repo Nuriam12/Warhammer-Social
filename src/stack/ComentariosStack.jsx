@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { use } from "react";
 import { useComentariosStore } from "../Store/ComentariosStore";
 import { useUsuariosStore } from "../Store/UsuariosStore";
@@ -27,5 +27,14 @@ export const useInsertarComentarioMutate = (p) => {
             toast.success("comentario insertado");
             p.setComentario("");
         }
+    });
+};
+
+export const useMostrarComentariosQuery =() =>{
+    const {mostrarComentarios} = useComentariosStore();
+    const {itemSelect} = usePostStore()
+    return useQuery ({
+        queryKey:["mostrar comentarios",{_id_publicacion:itemSelect?.id}],
+        queryFn:()=>mostrarComentarios({_id_publicacion:itemSelect?.id}),
     });
 }
