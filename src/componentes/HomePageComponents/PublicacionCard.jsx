@@ -5,6 +5,8 @@ import { usePostStore } from "../../Store/PostStore";
 import { set } from "react-hook-form";
 import { useLikePostMutate } from "../../stack/PostStack";
 import { useComentariosStore } from "../../Store/ComentariosStore";
+import { useRelativeTime } from "../Hooks/useRelativeTime"
+
 export const PublicacionCard = ({item}) => {
     const {setItemSelect} = usePostStore();
     const{mutate} = useLikePostMutate();
@@ -20,7 +22,7 @@ export const PublicacionCard = ({item}) => {
                 </div>
                 <div className="flex items-center gap-2">
                     <span className="text-gray-500 text-sm whitespace-nowrap">
-                        hace 8h
+                        {useRelativeTime(item?.fecha)}
                     </span>
                     <button>
                         <Icon icon="mdi:dots-horizontal" width="24" height="24" />

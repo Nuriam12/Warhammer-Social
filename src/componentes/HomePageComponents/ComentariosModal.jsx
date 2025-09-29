@@ -6,11 +6,12 @@ import EmojiPicker from "emoji-picker-react";
 import { useComentariosStore } from "../../Store/ComentariosStore";
 import { useUsuariosStore } from "../../Store/UsuariosStore";
 import { SpinnerLocal } from "../UI/buttons/spinners/SpinnerLocal";
-import { data } from "react-router-dom";
 import { ComentarioCard } from "./ComentarioCard";
+import { usePostStore } from "../../Store/PostStore";
 
 
-export const ComentariosModal = ({item,onClose}) => {
+export const ComentariosModal = () => {
+    const {itemSelect:item} = usePostStore
     const [comentario,setComentario] = useState("");
     const {mutate:comentarioMutate} = useInsertarComentarioMutate({comentario:comentario,setComentario:setComentario});
     const [showEmojPicker, setShowEmojiPicker] = useState(false);
@@ -33,16 +34,15 @@ export const ComentariosModal = ({item,onClose}) => {
         setComentario(newText);
     };
 
-        useEffect (()=>{
-            const handleClickOutside = (e) => {
-                if(pickerRef.current && !pickerRef.current.contains(e.target)){
-                    setShowEmojiPicker(false);
-                }
-            };
-            document.addEventListener("mousedown", handleClickOutside);
-                return ()=> document.removeEventListener("mousedown",handleClickOutside);
-        },
-        []);
+    useEffect (()=>{
+        const handleClickOutside = (e) => {
+            if(pickerRef.current && !pickerRef.current.contains(e.target)){
+                 setShowEmojiPicker(false);
+            }};
+        document.addEventListener("mousedown", handleClickOutside);
+            return ()=> document.removeEventListener("mousedown",handleClickOutside);
+    },
+    []);
 
     return (
         <main className="fixed inset-0 z-100 bg-black/50 backdrop-blur-sm flex items-center justify-center">
@@ -70,7 +70,7 @@ export const ComentariosModal = ({item,onClose}) => {
                 <footer className="flex items-center gap-2 p-4 bg-white dark:bg-neutral-900">
                     <section className="w-full gap-2 flex flex-col">
                         <section className="flex w-full gap-4">
-                            <img src={item?.foto_usuario} className="w-10 h-10 rounded-full object-cover" alt="avatar"/>
+                            <img src={dataUsuarioAuth?.foto_usuario} className="w-10 h-10 rounded-full object-cover" alt="avatar"/>
                             <input ref={textComentarioRef}
                             value={comentario}
                             onChange={(e)=>setComentario(e.target.value)}

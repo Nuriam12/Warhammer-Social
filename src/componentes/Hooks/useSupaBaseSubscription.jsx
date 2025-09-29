@@ -8,7 +8,7 @@ export const useSupabaseSubscription = ({channelName,options,queryKey})=>{
             const subscription = supabase.channel(channelName).on("postgres_changes",options,(payload)=>{
                 const {eventType} = payload
                 if(["INSERT","UPDATE","DELETE"].includes(eventType)){
-                    queryClient.invalidateQueries(queryKey)
+                    queryClient.invalidateQueries({queryKey})
                 }
             }).subscribe();
             return()=>{
