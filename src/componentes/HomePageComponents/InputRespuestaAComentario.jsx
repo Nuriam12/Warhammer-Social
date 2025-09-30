@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import { useRespuestasComentariosStore } from "../../Store/RespuestasComentariosStore";
 
 export const InputRespuestaAComentario = () => {
-  const{setRespuesta} = useRespuestasComentariosStore
+  const{setRespuesta} = useRespuestasComentariosStore();
   const { dataUsuarioAuth } = useUsuariosStore();
   const [showEmojPicker, setShowEmojiPicker] = useState(false);
   const pickerRef = useRef(null);
@@ -53,8 +53,8 @@ export const InputRespuestaAComentario = () => {
             ref={textComentarioRef}
             value={comentario}
             onChange={(e) => {
-              setRespuesta()
-              setComentario(e.target.value)}}
+              setRespuesta(e.target.value);
+              setComentario(e.target.value);}}
             placeholder="Escribe un comentario..."
             className="flex-1 bg-gray-100 dark:bg-gray-800 text-sm rounded-2xl px-4 py-2 focus:outline-none resize-none"
           />
@@ -76,7 +76,11 @@ export const InputRespuestaAComentario = () => {
         </section>
         <section className="flex justify-end">
           <button
-            className="flex justify-end gap-1 px-4 py-2 rounded-full text-sm text-gray-500 cursor-pointer"
+            className={`flex justify-end gap-1 px-4 py-2 rounded-full text-sm ${
+                  comentario.trim() === ""
+                    ? "cursor-not-allowed text-gray-500"
+                    : "cursor-pointer text-[#00AEF0] hover:bg-blue-600/10 "
+                } `}
             onClick={() => comentarioMutate({ comentario })}
           >
             <Icon icon="fluent:send-16-filled" width="16" height="16" />

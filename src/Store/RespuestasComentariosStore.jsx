@@ -17,12 +17,14 @@ export const useRespuestasComentariosStore = create((set)=>({
         const{error} = await supabase.from(tabla).insert(p);
         if (error) throw new Error (error.message)
     },
+    dataRespuestaAComentario:null,
     //Mostramos anterires respuestas al comentario 
     mostrarRespuestaACcomentario: async(p)=>{
         const{data,error} = await supabase.from(tabla).select(`*,usuarios(*)`).eq("id_comentario",p.id_comentario);
         if (error){
             throw new Error(error.message)
         }
+        set({dataRespuestaAComentario:data})
         return data;
     },
 }));

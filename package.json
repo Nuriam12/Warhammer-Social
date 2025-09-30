@@ -14,7 +14,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-query": "^5.89.0",
     "@tanstack/react-query-devtools": "^5.89.0",
-    "browser-image-compression": "^1.0.15",
+    "browser-image-compression": "^1.0.17",
     "dayjs": "^1.11.18",
     "emoji-picker-react": "^4.13.3",
     "fast-average-color": "^9.5.0",

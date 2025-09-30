@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react";
 import { PostImageFrame } from "./PostImageFrame";
 import {PostVideoFrame} from "./PostVideoFrame"
 import { usePostStore } from "../../Store/PostStore";
-import { set } from "react-hook-form";
 import { useLikePostMutate } from "../../stack/PostStack";
 import { useComentariosStore } from "../../Store/ComentariosStore";
 import { useRelativeTime } from "../Hooks/useRelativeTime"
@@ -59,7 +58,10 @@ export const PublicacionCard = ({item}) => {
                 </div>
                 <div className="flex gap-4 mt-1">
                     {item?.likes > 0 && (<span className="text-sm text-gray-400">{item?.likes} Me gusta</span>)}
-                    {item?.comentarios_count > 0 && (<span className="text-sm text-gray-400 cursor-pointer hover:underline">{item?.comentarios_count} Comentarios</span>)}
+                    {item?.comentarios_count > 0 && (<span onClick={()=>{
+                        setItemSelect(item)
+                        setShowModal()
+                    }}   className="text-sm text-gray-400 cursor-pointer hover:underline">{item?.comentarios_count} Comentarios</span>)}
 
                 </div>
             </div>

@@ -11,8 +11,13 @@ import { useSupabaseSubscription } from "../componentes/Hooks/useSupaBaseSubscri
 import { ComentariosModal } from "../componentes/HomePageComponents/ComentariosModal";
 import { useComentariosStore } from "../Store/ComentariosStore";
 import { useMostrarRespuestaComentariosQuery } from "../stack/RespuestasComentariosStack";
+import { FormActualizarPerfil } from "../componentes/Formularios/FormActualizarPerfil";
+import { useUsuariosStore } from "../Store/UsuariosStore";
 export const Home = () => {
   const { stateForm, setStateForm, itemSelect } = usePostStore();
+  const { dataUsuarioAuth } = useUsuariosStore();
+  const { data: dataRespuestaComentario } =
+    useMostrarRespuestaComentariosQuery();
   const {
     data: dataPost,
     fetchNextPage,
@@ -22,7 +27,7 @@ export const Home = () => {
   } = useMostrarPostQuery();
   const scrollRef = useRef(null);
   const { showModal } = useComentariosStore();
-  const {data:dataRespuestaComentario} = useMostrarRespuestaComentariosQuery();
+
   useEffect(() => {
     const el = scrollRef.current;
     const handleScroll = () => {
@@ -49,11 +54,25 @@ export const Home = () => {
   useSupabaseSubscription({
     channelName: "public:comentarios",
     options: { event: "*", schema: "public", table: "comentarios" },
-    queryKey: ["mostrar comentarios", { _id_publicacion: itemSelect?.id }],
+    queryKey: ["mostrar comentarios"],
+  });
+
+  useSupabaseSubscription({
+    channelName: "public:respuestas_comentarios",
+    options: { event: "*", schema: "public", table: "respuestas_comentarios" },
+    queryKey: ["mostrar respuesta comentarios"],
+  });
+
+   useSupabaseSubscription({
+    channelName: "public:usuarios",
+    options: { event: "*", schema: "public", table: "usuarios" },
+    queryKey: ["contar usuarios todos"],
   });
 
   return (
     <main className="flex min-h-screen bg-white dark:bg-bg-dark max-w-[1200px] mx-auto">
+      {dataUsuarioAuth?.foto_perfil === "-" && <FormActualizarPerfil />}
+
       <Toaster position="top-left" />
       {stateForm && <FormPost />}
       <section className="flex flex-col w-full h-screen">

@@ -9,4 +9,4 @@ export const BtnToggleTheme = () => {
             <span className="hidden sm:block"/*RESPONSIVE*/>{theme === "light" ? "claro" : "oscuro" }</span>
         </button>
     );
-};
+}; 

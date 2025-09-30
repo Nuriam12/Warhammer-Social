@@ -68,7 +68,7 @@ export const FormPost = () => {
                             <div className="relative">
                                 <textarea ref={textareaRef} value={postText}  onChange={handleTextChange} placeholder="¿Que estas pensando?" className="w-full placeholder-gray-500 outline-none" />
                                 {
-                                    showEmojPicker &&( <div className="absolute top-10 left-10 mt-2" ref={pickerRef}>
+                                    showEmojPicker &&( <div className="absolute top-10 left-10 mt-2 z-1 " ref={pickerRef}>
                                         
                                          <EmojiPicker onEmojiClick={addEmoji} theme="auto" searchDisabled  /> </div> )      
                                 }

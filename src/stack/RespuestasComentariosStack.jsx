@@ -3,9 +3,10 @@ import { useRespuestasComentariosStore } from "../Store/RespuestasComentariosSto
 import { useFormattedDate } from "../componentes/Hooks/useFormattedDate";
 import { useUsuariosStore } from "../Store/UsuariosStore";
 import { useComentariosStore } from "../Store/ComentariosStore";
+import { toast } from "sonner";
 
 export const useInsertarRespuestaComentarioMutate = () =>{
-    const {insertarRespuestaAComentarios,respuestaActivaParaComentarioId,respuesta,setRespuesta} = useRespuestasComentariosStore();
+    const {insertarRespuestaAComentarios,respuestaActivaParaComentarioId,respuesta,setRespuesta,limpiarRespuestaActiva} = useRespuestasComentariosStore();
     const{fechaActual}=useFormattedDate();
     const{dataUsuarioAuth}=useUsuariosStore();
     return useMutation ({
@@ -19,6 +20,7 @@ export const useInsertarRespuestaComentarioMutate = () =>{
         onError:(error)=>{toast.error("error al insertar respuesta" + error.message);},
         onSuccess: () => {toast.success("Respuesta enviada");
             setRespuesta("")
+            limpiarRespuestaActiva()
         },
     });
 };
